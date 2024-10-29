@@ -1,19 +1,15 @@
-import { useState } from 'react'
-import { useSelector } from 'react-redux'
-
+import "./App.css";
+import HeaderComponent from "./Components/HeaderComponent";
 
 function App() {
-
-  const state=useSelector((state)=>{
-    return state.media.value;
-  });
-
-  console.log(state);
   return (
-    <>
-    
-    </>
-  )
+    <div className="relative w-full h-full">
+      <div>
+          <HeaderComponent />
+      </div>
+      <div></div>
+    </div>
+  );
 }
 
-export default App
+export default App;
