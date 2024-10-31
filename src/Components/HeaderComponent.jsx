@@ -5,9 +5,11 @@ import { FiSearch } from "react-icons/fi";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import { MdMic } from "react-icons/md";
 import SearchModal from "./SearchModal";
+import { Link, useNavigate } from "react-router-dom";
 
 function HeaderComponent() {
-  const [visible,setVisible]=useState(true);
+  const [visible,setVisible]=useState(false);
+  const route=useNavigate();
 
   return (
     <>
@@ -24,6 +26,7 @@ function HeaderComponent() {
             alt="Youtube_logo"
             width="100"
             className="object-contain"
+            onClick={()=>route("/")}
           />
         </div>
         {/* header sub container  */}
@@ -42,7 +45,7 @@ function HeaderComponent() {
             </button>
           </div>
           {/* static mic button visible in large hidden on small screen */}
-          <button className="bg-[#f8f8f8] p-2 rounded-full hidden md:flex">
+          <button className="bg-[#f8f8f8] p-2 rounded-full hidden md:flex" onClick={()=>alert("I am a Static Button")}>
             <MdMic size={21} />
           </button>
         </div>
@@ -55,10 +58,10 @@ function HeaderComponent() {
           <BiDotsVertical />
         </button>
         {/* Sign in info for login and user info if logged in */}
-        <button className="flex px-2 font-semibold text-blue-700 py-1 border-2 rounded-2xl items-center text-sm min-w-fit">
+        <Link to="/login" className="flex px-2 font-semibold text-blue-700 py-1 border-2 rounded-2xl items-center text-sm min-w-fit hover:text-[brown] active:text-blue-700">
           <HiOutlineUserCircle size={21} />
           Sign In
-        </button>
+        </Link>
       </div>
       {
         visible && <SearchModal setVisible={setVisible}/>

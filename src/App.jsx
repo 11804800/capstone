@@ -1,5 +1,7 @@
+import { Outlet } from "react-router-dom";
 import "./App.css";
 import HeaderComponent from "./Components/HeaderComponent";
+import SidebarComponent from "./Components/SidebarComponent";
 
 function App() {
   return (
@@ -7,7 +9,10 @@ function App() {
       <div>
           <HeaderComponent />
       </div>
-      <div></div>
+      <div className="flex">
+        <SidebarComponent/>
+        <Outlet/>
+      </div>
     </div>
   );
 }
