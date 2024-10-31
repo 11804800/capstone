@@ -7,7 +7,8 @@ import { MdMic } from "react-icons/md";
 import SearchModal from "./SearchModal";
 import { Link, useNavigate } from "react-router-dom";
 
-function HeaderComponent() {
+function HeaderComponent(props) {
+
   const [visible,setVisible]=useState(false);
   const route=useNavigate();
 
@@ -17,7 +18,7 @@ function HeaderComponent() {
       <div className="flex gap-4 h-12 items-center py-2 justify-between px-2">
         <div className="flex gap-2">
           {/* side bar toggle button */}
-          <button className="p-2">
+          <button className="p-2" onClick={()=>props.setSidebarVisible(!props.sidebarvisible)}>
             <FaBars size={19} />
           </button>
           {/* youtube logo image */}

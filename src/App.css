@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* For Designing the scrollbar */
+.Scrollbar::-webkit-scrollbar {
+  background: white;
+  width: 10px;
+  border-radius: 4px;
+}
+
+.Scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgb(144, 144, 144);
+  border: 2px solid white;
+  border-radius: 0px;
+}
+
+.No-Scrollbar::-webkit-scrollbar {
+  background: white;
+  width: 10px;
+  border-radius: 4px;
+}
+
+.No-Scrollbar::-webkit-scrollbar-thumb {
+  display: none;
+}
