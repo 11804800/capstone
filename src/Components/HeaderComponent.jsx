@@ -6,11 +6,15 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 import { MdMic } from "react-icons/md";
 import SearchModal from "./SearchModal";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function HeaderComponent(props) {
 
   const [visible,setVisible]=useState(false);
   const route=useNavigate();
+  const User=useSelector((state)=>{
+    return state.user.user
+  });
 
   return (
     <>
@@ -59,10 +63,19 @@ function HeaderComponent(props) {
           <BiDotsVertical />
         </button>
         {/* Sign in info for login and user info if logged in */}
+        {
+          !User
+          ?
         <Link to="/login" className="flex px-2 font-semibold text-blue-700 py-1 border-2 rounded-2xl items-center text-sm min-w-fit hover:text-[brown] active:text-blue-700">
           <HiOutlineUserCircle size={21} />
           Sign In
         </Link>
+        :
+        //route to userinfopage
+        <Link to={`/user/${User}`}>
+          {User}
+        </Link>
+        }
       </div>
       {
         visible && <SearchModal setVisible={setVisible}/>
