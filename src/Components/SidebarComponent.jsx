@@ -142,7 +142,10 @@ function SidebarComponent() {
           <CiSettings size={23} />
           Settings
         </button>
-        <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex items-center justify-start gap-2 focus:bg-zinc-200 focus:font-semibold" onClick={()=>{dispatch(Logout());route("/")}}>
+        <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex items-center justify-start gap-2 focus:bg-zinc-200 focus:font-semibold" onClick={()=>{
+          dispatch(Logout());
+          route("/")
+          }}>
           <HiOutlineLogout />
           Logout
         </button>

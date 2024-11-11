@@ -13,7 +13,7 @@ function VideoItemComponent({ data }) {
         loading="lazy"
         onError={({ currentTarget }) => {
           currentTarget.onerror = null; 
-          currentTarget.src = "imageNotFound.jpg";
+          currentTarget.src = "/imageNotFound.jpg";
         }}
       />
       <div className="flex gap-2 p-2 items-center">

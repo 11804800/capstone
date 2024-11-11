@@ -18,7 +18,6 @@ function App() {
     return state.user.user;
   });
 
-  console.log(user);
   //user token for auth
   const token = useSelector((state) => {
     return state.user.token;

@@ -1,8 +1,24 @@
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 
-function CreateChannelModal({ setVisible }) {
+function CreateChannelModal({ setVisible,user }) {
+
+  //state for channel image
   const [image, setImage] = useState("/User.png");
+  //state for input 
+  const [channelInfo,setChannelInfo]=useState({
+    name:user?.fullname,
+    handle:user?.username
+  });
+
+  //on input change
+  function OnInputChange(e)
+  {
+    setChannelInfo((prev)=>({
+      ...prev,[e.target.name]:e.target.value
+    }));
+  }
+
   return (
     <div className="absolute top-0 left-0 bg-black/5 h-[100dvh] w-[100dvw] flex justify-center items-center">
       <div className="w-full h-full md:w-[80%] md:h-[85%] flex flex-col gap-2 p-2 md:p-4 rounded-md shadow-md border bg-white">
@@ -28,11 +44,11 @@ function CreateChannelModal({ setVisible }) {
           </div>
           <div className="border-2 p-2 rounded-lg roboto-medium flex flex-col gap-2 w-[80%]">
             <label className="text-zinc-400 text-sm">Name</label>
-            <input type="text" placeholder="Enter Your Name" className="outline-none" />
+            <input type="text" placeholder="Enter Your Name" className="outline-none" name="name" value={channelInfo.name} onChange={(e)=>OnInputChange(e)} />
           </div>
           <div className="border-2 p-2 rounded-lg roboto-medium flex flex-col gap-2 w-[80%]">
             <label className="text-zinc-400 text-sm ">Handle</label>
-            <input type="text" placeholder="Enter Your handle" className="outline-none"/>
+            <input type="text" placeholder="Enter Your handle" className="outline-none" name="handle" value={channelInfo.handle}  onChange={(e)=>OnInputChange(e)}/>
           </div>
           <div className="text-[12px] roboto-medium text-zinc-400 flex justify-center items-center">
             <p className="w-[80%]">

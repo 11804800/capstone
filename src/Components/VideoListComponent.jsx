@@ -8,9 +8,13 @@ function VideoListComponent() {
     return state.media.videos;
   });
 
+  const user=useSelector((state)=>{
+    return state.user.user
+  });
+
   return (
     <>
-      {!videos ? (
+      {!user ? (
         <div className="flex flex-col gap-4 pt-12 w-full justify-center items-center">
           <div className="p-12 border shadow-lg flex flex-col gap-4 w-[80%] justify-center items-center">
             <p className="text-2xl roboto-medium">
