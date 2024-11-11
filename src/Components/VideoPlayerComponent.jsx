@@ -1,4 +1,4 @@
-function MediaDetailsComponent()
+function VideoPlayerComponent()
 {
     return (
         <div>
@@ -7,4 +7,4 @@ function MediaDetailsComponent()
     )
 }
 
-export default MediaDetailsComponent;
+export default VideoPlayerComponent;

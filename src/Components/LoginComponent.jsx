@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Login } from "../Redux/UserSlice";
 
 export default function LoginComponent() {
   //hook for routing
@@ -20,6 +22,9 @@ export default function LoginComponent() {
     password: "",
   });
 
+  //for dispatching the redux actions
+  const dispatch=useDispatch();
+
   //if the input change it will check which input is changing by checking the name of event
   //and then it will update the user state
   function OnInputChange(e) {
@@ -29,7 +34,7 @@ export default function LoginComponent() {
     }));
   }
 
-  function Login() {
+  function LoginUser() {
     setFromSubmitted(true);
 
     const body = {
@@ -52,6 +57,7 @@ export default function LoginComponent() {
               );
               //storing the username in local storage
               localStorage.setItem("user", JSON.stringify(user.username));
+              dispatch(Login({token:response?.data?.token,user:user.username}));
               //redirecting to home after 2 seconds
               setTimeout(() => {
                 route("/");
@@ -122,7 +128,7 @@ export default function LoginComponent() {
           <div className="w-full py-6">
             <button
               className="border-2 px-6 py-2 rounded font-semibold bg-[brown] text-white text-sm drop-shadow-md active:drop-shadow-none"
-              onClick={Login}
+              onClick={LoginUser}
             >
               Login
             </button>

@@ -19,15 +19,22 @@ import {
 import { PiCaretRightThin, PiCoatHanger } from "react-icons/pi";
 import { RiYoutubeLine } from "react-icons/ri";
 import { SiYoutubeshorts } from "react-icons/si";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { Logout } from "../Redux/UserSlice";
 
 
 function SidebarComponent() {
+
+  const dispatch=useDispatch();
+  
   //Current date instance
   const date = new Date();
 
   //state to toggle the scrollbar visibility
   const [visible, setVisible] = useState(false);
+
+  const route=useNavigate();
 
   return (
     //onMouseEnter it will set the visible state true which will make the scrollbar visible
@@ -135,7 +142,7 @@ function SidebarComponent() {
           <CiSettings size={23} />
           Settings
         </button>
-        <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex items-center justify-start gap-2 focus:bg-zinc-200 focus:font-semibold">
+        <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex items-center justify-start gap-2 focus:bg-zinc-200 focus:font-semibold" onClick={()=>{dispatch(Logout());route("/")}}>
           <HiOutlineLogout />
           Logout
         </button>

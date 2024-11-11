@@ -6,15 +6,22 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 import { MdMic } from "react-icons/md";
 import SearchModal from "./SearchModal";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearch } from "../Redux/MediaSlice";
 
 function HeaderComponent(props) {
 
   const [visible,setVisible]=useState(false);
   const route=useNavigate();
   const User=useSelector((state)=>{
-    return state.user.user
+    return state.user.userData
   });
+
+
+  const dispatch=useDispatch();
+  const [text,setText]=useState();
+
+
 
   return (
     <>
@@ -43,9 +50,14 @@ function HeaderComponent(props) {
               type="text"
               placeholder="Search"
               className="border-0 py-1 px-6 bg-transparent focus:rounded-l-3xl  w-[97%]"
+              name="search" 
+              onChange={(e)=>setText(e.target.value)}
             />
             {/* search button */}
-            <button className="border-l-2 px-2 bg-[#f8f8f8] rounded-r-2xl">
+            <button className="border-l-2 px-2 bg-[#f8f8f8] rounded-r-2xl" onClick={()=>{
+              route("/");
+              dispatch(setSearch(text));
+            }}>
               <FiSearch size={20} />
             </button>
           </div>
@@ -72,8 +84,8 @@ function HeaderComponent(props) {
         </Link>
         :
         //route to userinfopage
-        <Link to={`/user/${User}`}>
-          {User}
+        <Link to={`/user/${User?.username}`}>
+          {User?.avatar ? <img src={`http://localhost:3000/${User.avatar}`} className="rounded-full" width="35" height="35"/> :<img src="/User.png" width="35" height="35" />}
         </Link>
         }
       </div>
