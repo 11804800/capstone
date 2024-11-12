@@ -7,6 +7,7 @@ import ChannelPage from "../Components/ChannelPage";
 import UploadVideoComponent from "../Components/UploadVideoComponent";
 import VideoListComponent from "../Components/VideoListComponent";
 import VideoPlayerComponent from "../Components/VideoPlayerComponent";
+import SearchComponent from "../Components/SearchComponent";
 export const BrowseRouter = createBrowserRouter([
   {
     path: "/",
@@ -27,6 +28,10 @@ export const BrowseRouter = createBrowserRouter([
       {
         path:"/channel/:ChannelName",
         element:<ChannelPage/>
+      },
+      {
+        path:"/search/:searchParams",
+        element:<SearchComponent/>
       }
     ],
   },

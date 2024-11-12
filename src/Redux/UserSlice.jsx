@@ -27,9 +27,16 @@ const UserSlice = createSlice({
     },
     ShowUserData:(state,action)=>{
       state.userData=action.payload
+    },
+    Subscribe:(state,action)=>{
+      state.userData.subscribed.push(action.payload);
+    },
+    UnSubscribe:(state,action)=>{
+      const index=state.userData.channels.findIndex((item)=>item===action.payload);
+      state.userData.subscribed.splice(index,1);
     }
   },
 });
 
 export default UserSlice.reducer;
-export const {Logout,Login,ShowUserData}=UserSlice.actions;
+export const {Logout,Login,ShowUserData,Subscribe,UnSubscribe}=UserSlice.actions;

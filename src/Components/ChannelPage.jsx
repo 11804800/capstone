@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { FaPencil, FaPlus, FaTrash } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import SubscribeComponent from "./Subscribe";
 
 function ChannelPage() {
   //getting the route params channelName for filtering the data
@@ -21,7 +21,7 @@ function ChannelPage() {
 
   //getting user from redux store
   const user = useSelector((state) => {
-    return state.user.user;
+    return state.user.userData;
   });
 
   return (
@@ -30,18 +30,22 @@ function ChannelPage() {
         (item) => {
           return (
             <div className="w-full p-3 flex flex-col gap-3 " key={item._id}>
+              {/* channel banner */}
               <img
                 src={item?.banner}
-                className="rounded-xl h-[20dvh] md:h-[32dvh] object w-full object-fill"
+                className="rounded-xl h-[20dvh] md:h-[32dvh] object w-full object-contain"
               />
-              <div className="flex w-full md:w-[80%] md:h-[25dvh]  items-center">
+              <div className="flex w-full md:w-[80%] md:h-[25dvh]  items-center gap-2">
+                {/* channel image */}
                 <div className="w-[20%] flex justify-center items-center">
                   <img src={item?.image} className="rounded-full" />
                 </div>
+                {/* Channel Title */}
                 <div className="flex flex-col gap-1 w-[80%] roboto-medium">
                   <h1 className="font-bold text-sm md:text-4xl">
                     {item?.name}
                   </h1>
+                  {/* Channel Info */}
                   <div
                     id="Channel-info"
                     className="font-semibold md:font-normal flex flex-col md:flex-row md:gap-2 text-sm text-black md:text-[#707070]"
@@ -59,7 +63,7 @@ function ChannelPage() {
                     </p>
                     <button className="font-semibold">...more.</button>
                   </div>
-                  {item?.creator === user ? (
+                  {item?.creator === user?.username ? (
                     <>
                       <h1 className="hidden md:flex text-[12px]">
                         You Can't Subscribe To Channel Beacuse You are the Owner
@@ -74,9 +78,13 @@ function ChannelPage() {
                       </div>
                     </>
                   ) : (
-                    <button className="bg-black text-white text-sm w-fit rounded-3xl px-4 py-2 font-semibold shadow-md hidden md:flex">
-                      Subscribe
-                    </button>
+                    //hide on small screen
+                    <div className="md:flex w-fit hidden">
+                      <SubscribeComponent
+                        channels={user?.subscribed}
+                        channelId={item?.name}
+                      />
+                    </div>
                   )}
                 </div>
               </div>
@@ -92,9 +100,12 @@ function ChannelPage() {
                   You Can't Subscribe To Channel Beacuse You are the Owner
                 </h1>
               ) : (
-                <button className="bg-black text-white rounded-2xl md: px-4 py-1 font-semibold shadow-md text-sm flex md:hidden justify-center">
-                  Subscribe
-                </button>
+                <div className="w-full flex md:hidden">
+                      <SubscribeComponent
+                        channels={user?.subscribed}
+                        channelId={item?.name}
+                      />
+                </div>
               )}
               <div
                 id="tab-buttons"
@@ -127,7 +138,7 @@ function ChannelPage() {
                           ).map((val) => {
                             return (
                               <div
-                                className="w-[320px] h-fit rounded-lg border shadow flex flex-col"
+                                className="w-[320px] min-h-fit rounded-lg border shadow flex flex-col"
                                 key={val._id}
                               >
                                 <img
@@ -150,7 +161,7 @@ function ChannelPage() {
                                   <p>{val?.views} Views .</p>
                                   <p>{val?.uploadDate} Day</p>
                                 </div>
-                                {val?.uploader === user && (
+                                {val?.uploader === user?.username && (
                                   <div className="text-sm roboto-medium flex gap-12 justify-end p-2">
                                     <button className="flex items-center gap-1 text-blue-500 hover:text-[brown] active:text-black">
                                       Edit

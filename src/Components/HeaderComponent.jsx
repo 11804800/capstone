@@ -19,7 +19,7 @@ function HeaderComponent(props) {
   });
 
 
-  const dispatch=useDispatch();
+
   const [text,setText]=useState();
 
 
@@ -56,8 +56,7 @@ function HeaderComponent(props) {
             />
             {/* search button */}
             <button className="border-l-2 px-2 bg-[#f8f8f8] rounded-r-2xl" onClick={()=>{
-              route("/");
-              dispatch(setSearch(text));
+              route(`/search/${text}`);
             }}>
               <FiSearch size={20} />
             </button>

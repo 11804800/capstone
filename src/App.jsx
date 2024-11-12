@@ -5,13 +5,13 @@ import SidebarComponent from "./Components/SidebarComponent";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ShowChannels } from "./Redux/ChannelSlice";
-import { ShowVideos } from "./Redux/MediaSlice";
+import { ShowFilters, ShowVideos } from "./Redux/MediaSlice";
 import axios from "axios";
 import { ShowUserData } from "./Redux/UserSlice";
 
 function App() {
   //state for toggling the sidebar menu
-  const [sidebarvisible, setSidebarVisible] = useState(true);
+  const [sidebarvisible, setSidebarVisible] = useState(false);
 
   //getting state of user
   const user = useSelector((state) => {
@@ -55,6 +55,7 @@ function App() {
         },
       });
       dispatch(ShowVideos(res.data?.data));
+      dispatch(ShowFilters(res.data?.filterCategory));
     }
 
     //only if the user is logged in the function will be called

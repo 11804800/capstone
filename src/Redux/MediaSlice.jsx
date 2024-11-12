@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
     videos:[],
-    Search:""
+    filters:[]
 }
 
 const MediaSlice=createSlice({
@@ -14,9 +14,12 @@ const MediaSlice=createSlice({
         },
         ShowVideos:(state,action)=>{
             state.videos=action.payload
+        },
+        ShowFilters:(state,action)=>{
+            state.filters=action.payload
         }
     },
 },);
 
 export default MediaSlice.reducer;
-export const {setSearch,ShowVideos}=MediaSlice.actions;
+export const {setSearch,ShowVideos,ShowFilters}=MediaSlice.actions;
