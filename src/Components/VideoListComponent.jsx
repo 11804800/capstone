@@ -25,7 +25,6 @@ function VideoListComponent() {
   //filter if filter has no value then return the video else filter it based on the value
   const Video=filter=="" ? videos : videos.filter((item)=>item?.Category==filter);
 
-  console.log(Filters);
   return (
     <>
       {!user ? (
@@ -44,8 +43,8 @@ function VideoListComponent() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col gap-4 pt-12 w-full">
-          <div className="flex overflow-x-auto No-Scrollbar1 gap-6 px-6">
+        <div className="flex flex-col gap-4 pt-12 w-full  h-[93dvh] overflow-y-auto ">
+          <div className="flex gap-6 px-6 py-2 No-Scrollbar1 w-[100%] h-[7dvh]  overflow-x-auto">
             <button
               className={`${
                 filter ? "bg-zinc-100" : "bg-black text-white"
@@ -68,7 +67,7 @@ function VideoListComponent() {
               );
             })}
           </div>
-          <div className="flex flex-wrap w-full py-5 px-2 gap-5 justify-center">
+          <div className="flex flex-wrap w-full py-5 px-2 gap-5 justify-center h-[93dvh] overflow-y-auto">
             {Video?.map((item) => {
               return (
                 <VideoItemComponent key={item._id} data={item}/>

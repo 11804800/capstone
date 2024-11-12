@@ -44,7 +44,7 @@ function SidebarComponent() {
       onMouseLeave={() => setVisible(false)}
       className={`${
         visible ? "Scrollbar" : "No-Scrollbar"
-      }   w-full md:w-[250px] shadow-sm h-[93dvh] overflow-auto flex flex-col gap-4 justify-start items-start p-2 transition-all duration-300`}
+      }   fixed md:w-[250px] w-full shadow-sm h-[93dvh] overflow-auto flex flex-col gap-4 justify-start items-start p-2 transition-all duration-300`}
     >
       <div className="flex flex-col items-start gap-2 border-b border-zinc-200 w-full p-2">
         <Link to="/" className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold">

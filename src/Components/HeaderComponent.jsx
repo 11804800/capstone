@@ -6,8 +6,7 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 import { MdMic } from "react-icons/md";
 import SearchModal from "./SearchModal";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setSearch } from "../Redux/MediaSlice";
+import { useSelector } from "react-redux";
 
 function HeaderComponent(props) {
 
@@ -27,7 +26,7 @@ function HeaderComponent(props) {
   return (
     <>
       {/* header container */}
-      <div className="flex gap-4 h-12 items-center py-2 justify-between px-2">
+      <div className="flex gap-4 h-12 items-center py-2 justify-between px-2 z-[-10]">
         <div className="flex gap-2">
           {/* side bar toggle button */}
           <button className="p-2" onClick={()=>props.setSidebarVisible(!props.sidebarvisible)}>

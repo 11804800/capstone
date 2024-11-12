@@ -101,10 +101,10 @@ function ChannelPage() {
                 </h1>
               ) : (
                 <div className="w-full flex md:hidden">
-                      <SubscribeComponent
-                        channels={user?.subscribed}
-                        channelId={item?.name}
-                      />
+                  <SubscribeComponent
+                    channels={user?.subscribed}
+                    channelId={item?.name}
+                  />
                 </div>
               )}
               <div
@@ -120,16 +120,23 @@ function ChannelPage() {
               </div>
               <div id="video-list">
                 {item?.videos.length == 0 ? (
-                  <div className="w-full h-full flex flex-col justify-center items-center p-5 gap-4">
-                    <h1 className="text-sm md:text-2xl font-semibold roboto ">
-                      No Videos Uploaded Yet
-                    </h1>
-                    <button className="border-2 p-2 font-medium flex items-center text-sm">
-                      Upload New Video <FaPlus />
-                    </button>
-                  </div>
+                  item?.creator === user?.username && (
+                    <div className="w-full h-full flex flex-col justify-center items-center p-5 gap-4">
+                      <h1 className="text-sm md:text-2xl font-semibold roboto ">
+                        No Videos Uploaded Yet
+                      </h1>
+                      <button className="border-2 p-2 font-medium flex items-center text-sm" onClick={()=>route("/upload")}>
+                        Upload New Video <FaPlus />
+                      </button>
+                    </div>
+                  )
                 ) : (
                   <div className="flex w-full flex-wrap p-4 gap-6 justify-center">
+                    {item?.creator === user?.username && (
+                      <button className="border-2 p-2 font-medium flex items-center text-lg justify-center  w-[320px] hover:bg-zinc-100 active:bg-white rounded-lg" onClick={()=>route("/upload")}>
+                        Upload New Video <FaPlus />
+                      </button>
+                    )}
                     {item?.videos.map((element) => {
                       return (
                         <div key={element}>
@@ -163,7 +170,7 @@ function ChannelPage() {
                                 </div>
                                 {val?.uploader === user?.username && (
                                   <div className="text-sm roboto-medium flex gap-12 justify-end p-2">
-                                    <button className="flex items-center gap-1 text-blue-500 hover:text-[brown] active:text-black">
+                                    <button className="flex items-center gap-1 text-blue-500 hover:text-[brown] active:text-black" onClick={()=>route(`/edit/${val?._id}`)}>
                                       Edit
                                       <FaPencil className="text-[11px]" />
                                     </button>

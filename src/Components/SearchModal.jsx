@@ -1,12 +1,19 @@
+import { useState } from "react";
 import { CgArrowLeft } from "react-icons/cg";
 import { FiSearch } from "react-icons/fi";
 import { MdMic } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 function SearchModal({setVisible}) {
- 
+
+  const [text,setText]=useState("")
+
+  const route=useNavigate();
+
   function Search()
   {
-    alert("")
+    setVisible(false);
+    route(`/search/${text}`);
   }
 
   return (
@@ -19,6 +26,7 @@ function SearchModal({setVisible}) {
           type="text"
           placeholder="Search"
           className="border-2 rounded-3xl py-1 px-3 w-[90%]"
+          onChange={(e)=>setText(e.target.value)}
         />
         <button className="p-2 active:bg-zinc-200 rounded-full" onClick={Search}>
           <FiSearch size={21} />

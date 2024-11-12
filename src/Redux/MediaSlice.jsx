@@ -17,9 +17,13 @@ const MediaSlice=createSlice({
         },
         ShowFilters:(state,action)=>{
             state.filters=action.payload
+        },
+        EditVideo:(state,action)=>{
+            const index=state.videos.findIndex((item)=>item._id==action.payload._id);
+            state.videos[index]=action.payload;
         }
     },
 },);
 
 export default MediaSlice.reducer;
-export const {setSearch,ShowVideos,ShowFilters}=MediaSlice.actions;
+export const {setSearch,ShowVideos,ShowFilters,EditVideo}=MediaSlice.actions;

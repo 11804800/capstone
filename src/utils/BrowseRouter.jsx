@@ -8,10 +8,14 @@ import UploadVideoComponent from "../Components/UploadVideoComponent";
 import VideoListComponent from "../Components/VideoListComponent";
 import VideoPlayerComponent from "../Components/VideoPlayerComponent";
 import SearchComponent from "../Components/SearchComponent";
+import NotFoundPageComponent from "../Components/NotFoundPageComponent";
+import EditVideoComponent from "../Components/EditVideoComponent";
+
 export const BrowseRouter = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement:<NotFoundPageComponent/>,
     children: [
       {
         path:'/',
@@ -38,13 +42,21 @@ export const BrowseRouter = createBrowserRouter([
   {
     path: "/login",
     element: <LoginComponent />,
+    errorElement:<NotFoundPageComponent/>
   },
   {
     path: "/signup",
     element: <SignupComponent />,
+    errorElement:<NotFoundPageComponent/>
   },
   {
     path:"/upload",
-    element:<UploadVideoComponent/>
+    element:<UploadVideoComponent/>,
+    errorElement:<NotFoundPageComponent/>
+  },
+  {
+    path:'/edit/:videoId',
+    element:<EditVideoComponent/>,
+    errorElement:<NotFoundPageComponent/>
   }
 ]);

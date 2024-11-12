@@ -11,7 +11,7 @@ import { ShowUserData } from "./Redux/UserSlice";
 
 function App() {
   //state for toggling the sidebar menu
-  const [sidebarvisible, setSidebarVisible] = useState(false);
+  const [sidebarvisible, setSidebarVisible] = useState(true);
 
   //getting state of user
   const user = useSelector((state) => {
@@ -27,16 +27,16 @@ function App() {
 
   //useEffect for fetching data if the user changes and only if the user islogged in
   useEffect(() => {
-
     //function for getting user data
-    async function GetUserData()
-    {
-      const res=await axios.get(`http://localhost:3000/user?username=${user}`);
+    async function GetUserData() {
+      const res = await axios.get(
+        `http://localhost:3000/user?username=${user}`
+      );
       //storing it as an object in the redux state
       dispatch(ShowUserData(res.data?.result));
     }
 
-    //function for getting the channel data 
+    //function for getting the channel data
     async function GetChannelData() {
       const res = await axios.get("http://localhost:3000/channel", {
         headers: {
@@ -48,8 +48,8 @@ function App() {
 
     //for getting video data
     async function GetVideoData() {
-      //getting data and authorizing by passing the jwt token stored in localstorage 
-      const res = await axios.get("http://localhost:3000/video",{
+      //getting data and authorizing by passing the jwt token stored in localstorage
+      const res = await axios.get("http://localhost:3000/video", {
         headers: {
           Authorization: `JWT ${token}`,
         },
@@ -64,7 +64,6 @@ function App() {
       GetChannelData();
       GetVideoData();
     }
-
   }, [user]);
   return (
     <div className="relative w-full h-full">
@@ -75,8 +74,12 @@ function App() {
         />
       </div>
       <div className="flex w-full gap-2">
-        {sidebarvisible && <SidebarComponent />}
-        <Outlet />
+        <div className={`${sidebarvisible && "md:w-[250px] w-full"}`}>
+          {sidebarvisible && <SidebarComponent  />}
+        </div>
+        <div className={`${sidebarvisible ? "md:w-[calc(100%-250px)] hidden md:flex " : "w-full"} overflow-hidden`}>
+          <Outlet />
+        </div>
       </div>
     </div>
   );

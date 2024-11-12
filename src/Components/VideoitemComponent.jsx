@@ -23,6 +23,11 @@ function VideoItemComponent({ data }) {
           height="35"
           className="rounded-full"
           loading="lazy"
+          alt={data?.channelId.name}
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null; 
+            currentTarget.src = "/imageNotFound.jpg";
+          }}
         />
         <div>
           <p className="roboto-medium line-clamp-2 text-[13px]">{data?.title}</p>
