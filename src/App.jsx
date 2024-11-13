@@ -11,7 +11,7 @@ import { ShowUserData } from "./Redux/UserSlice";
 
 function App() {
   //state for toggling the sidebar menu
-  const [sidebarvisible, setSidebarVisible] = useState(true);
+  const [sidebarvisible, setSidebarVisible] = useState(false);
 
   //getting state of user
   const user = useSelector((state) => {
@@ -54,7 +54,7 @@ function App() {
           Authorization: `JWT ${token}`,
         },
       });
-      dispatch(ShowVideos(res.data?.data));
+      dispatch(ShowVideos(res.data?.video));
       dispatch(ShowFilters(res.data?.filterCategory));
     }
 

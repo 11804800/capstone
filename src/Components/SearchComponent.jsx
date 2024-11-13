@@ -24,10 +24,10 @@ function SearchComponent() {
 
   //filtering the video and channel data based on the search params
   //in case if nothing match to show nothing found
-  const Video = videos.filter((item) =>
+  const Video = videos?.filter((item) =>
     item?.title.includes(params?.searchParams)
   );
-  const Channel = Channels.filter((item) =>
+  const Channel = Channels?.filter((item) =>
     item?.name.includes(params?.searchParams)
   );
 
@@ -36,7 +36,7 @@ function SearchComponent() {
       <p className="roboto-medium text-sm text-zinc-600">
         Showing Result for {params?.searchParams}
       </p>
-      {Video.length && Channel.length ? (
+      {Video?.length && Channel?.length ? (
         <div className="flex flex-col gap-2 h-full">
           {/* For channels if match the searchparams */}
           <div className="flex flex-col gap-4 p-2 w-full h-full ">

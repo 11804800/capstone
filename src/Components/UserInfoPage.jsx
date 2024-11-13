@@ -55,14 +55,14 @@ const UserInfoPage = () => {
             </div>
           ) : (
             <div className="flex gap-4 overflow-x-auto No-Scrollbar1 w-full">
-              {user?.channels.map((item) => {
+              {user?.channels.map((item,index) => {
                 return (
-                  <div className="min-w-fit p-2 border shadow-md rounded-lg" onClick={()=>route(`/channel/${item}`)}>
+                  <div key={index} className="min-w-fit p-2 border shadow-md rounded-lg" onClick={()=>route(`/channel/${item}`)}>
                     {channels
                       ?.filter((elem) => elem?.name === item)
                       ?.map((val) => {
                         return (
-                          <div className="p-2 flex flex-col gap-2 justify-center items-center roboto-medium">
+                          <div key={val?.name} className="p-2 flex flex-col gap-2 justify-center items-center roboto-medium">
                             <img
                               src={val?.image}
                               className="h-[180px]"
@@ -94,12 +94,12 @@ const UserInfoPage = () => {
             <div className="flex gap-4 overflow-x-auto No-Scrollbar1 w-full">
               {user?.subscribed.map((item) => {
                 return (
-                  <div className="min-w-fit p-2 border shadow-md rounded-lg" onClick={()=>route(`/channel/${item}`)}>
+                  <div key={item} className="min-w-fit p-2 border shadow-md rounded-lg" onClick={()=>route(`/channel/${item}`)}>
                     {channels
                       ?.filter((elem) => elem?.name === item)
                       ?.map((val) => {
                         return (
-                          <div className="p-2 flex flex-col gap-2 justify-center items-center roboto-medium">
+                          <div key={val?._id} className="p-2 flex flex-col gap-2 justify-center items-center roboto-medium">
                             <img
                               src={val?.image}
                               className="h-[180px]"

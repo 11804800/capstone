@@ -1,62 +1,106 @@
 import { createBrowserRouter } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import App from "../App";
-import LoginComponent from "../Components/LoginComponent";
-import SignupComponent from "../Components/SignupComponent";
-import UserInfoPage from "../Components/UserInfoPage";
-import ChannelPage from "../Components/ChannelPage";
-import UploadVideoComponent from "../Components/UploadVideoComponent";
-import VideoListComponent from "../Components/VideoListComponent";
-import VideoPlayerComponent from "../Components/VideoPlayerComponent";
-import SearchComponent from "../Components/SearchComponent";
+const LoginComponent = lazy(() => import("../Components/LoginComponent"));
+const SignupComponent = lazy(() => import("../Components/SignupComponent"));
+const UserInfoPage = lazy(() => import("../Components/UserInfoPage"));
+const ChannelPage = lazy(() => import("../Components/ChannelPage"));
+const UploadVideoComponent =lazy(()=> import("../Components/UploadVideoComponent"));
+const VideoListComponent = lazy(() =>
+  import("../Components/VideoListComponent")
+);
+const VideoPlayerComponent = lazy(() =>
+  import("../Components/VideoPlayerComponent")
+);
+const SearchComponent = lazy(() => import("../Components/SearchComponent"));
+const EditVideoComponent = lazy(() =>
+  import("../Components/EditVideoComponent")
+);
+import LoadingComponent from "../Components/LoadingComponent";
 import NotFoundPageComponent from "../Components/NotFoundPageComponent";
-import EditVideoComponent from "../Components/EditVideoComponent";
 
 export const BrowseRouter = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement:<NotFoundPageComponent/>,
+    errorElement: <NotFoundPageComponent />,
     children: [
       {
-        path:'/',
-        element:<VideoListComponent/>
+        path: "/",
+        element: (
+          <Suspense fallback={<LoadingComponent />}>
+            <VideoListComponent />
+          </Suspense>
+        ),
       },
       {
-        path:"/video/:videoName",
-        element:<VideoPlayerComponent/>
+        path: "/video/:videoName",
+        element: (
+          <Suspense fallback={<LoadingComponent />}>
+            <VideoPlayerComponent />
+          </Suspense>
+        ),
       },
       {
         path: "/user/:username",
-        element: <UserInfoPage />,
+        element: (
+          <Suspense fallback={<LoadingComponent />}>
+            <UserInfoPage />
+          </Suspense>
+        ),
       },
       {
-        path:"/channel/:ChannelName",
-        element:<ChannelPage/>
+        path: "/channel/:ChannelName",
+        element: (
+          <Suspense fallback={<LoadingComponent />}>
+            <ChannelPage />
+          </Suspense>
+        ),
       },
       {
-        path:"/search/:searchParams",
-        element:<SearchComponent/>
-      }
+        path: "/search/:searchParams",
+        element: (
+          <Suspense fallback={<LoadingComponent />}>
+            <SearchComponent />
+          </Suspense>
+        ),
+      },
     ],
   },
   {
     path: "/login",
-    element: <LoginComponent />,
-    errorElement:<NotFoundPageComponent/>
+    element: (
+      <Suspense fallback={<LoadingComponent />}>
+        <LoginComponent />
+      </Suspense>
+    ),
+    errorElement: <NotFoundPageComponent />,
   },
   {
     path: "/signup",
-    element: <SignupComponent />,
-    errorElement:<NotFoundPageComponent/>
+    element: (
+      <Suspense fallback={<LoadingComponent />}>
+        <SignupComponent />
+      </Suspense>
+    ),
+    errorElement: <NotFoundPageComponent />,
   },
   {
-    path:"/upload",
-    element:<UploadVideoComponent/>,
-    errorElement:<NotFoundPageComponent/>
+    path: "/upload",
+    element: (
+      <Suspense fallback={<LoadingComponent />}>
+        <UploadVideoComponent />
+      </Suspense>
+    ),
+    errorElement: <NotFoundPageComponent />,
   },
   {
-    path:'/edit/:videoId',
-    element:<EditVideoComponent/>,
-    errorElement:<NotFoundPageComponent/>
-  }
+    path: "/edit/:videoId",
+    element: (
+      <Suspense fallback={<LoadingComponent />}>
+        <EditVideoComponent />
+      </Suspense>
+    ),
+    errorElement: <NotFoundPageComponent />,
+  },
 ]);

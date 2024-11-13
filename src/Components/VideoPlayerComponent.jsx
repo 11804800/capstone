@@ -1,16 +1,19 @@
-import { MdVerified } from "react-icons/md";
+import { MdOutlineThumbDown, MdOutlineThumbUp,MdVerified } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SubscribeComponent from "./Subscribe";
 import CommentComponent from "./CommentComponent";
+import {  FaShare } from "react-icons/fa6";
+import { HiDownload } from "react-icons/hi";
 
 function VideoPlayerComponent() {
+  const route=useNavigate();
   const params = useParams();
   const Videos = useSelector((state) => {
     return state.media.videos;
   });
 
-  const video = Videos.filter((item) => item?.title === params?.videoName)[0];
+  const video = Videos?.filter((item) => item?.title === params?.videoName)[0];
   const user = useSelector((state) => {
     return state.user.userData;
   });
@@ -62,7 +65,20 @@ function VideoPlayerComponent() {
                 </div>
               </div>
               {/* for like and dislike share btn */}
-              <div></div>
+              <div className="flex gap-6 py-4 px-2">
+                <div className="flex gap-2 rounded-full border shadow bg-zinc-100 p-1">
+                  <button className="border-r-2 flex gap-1  items-center text-sm roboto-medium p-1"><MdOutlineThumbUp/> {video?.likes}</button>
+                  <button className="p-1"><MdOutlineThumbDown/></button>
+                </div>
+                <button className="border-r-2 flex gap-1 rounded-full items-center text-sm roboto-medium shadow py-1 px-2 bg-zinc-100">
+                  <FaShare/>
+                  Share
+                </button>
+                <button className="border-r-2 flex gap-1 rounded-full items-center text-sm roboto-medium shadow px-2 py-1 bg-zinc-100">
+                  <HiDownload/>
+                  Download
+                </button>
+              </div>
             </div>
             {/* video info */}
             <div className="bg-zinc-100 p-2 rounded-lg flex flex-col gap-2 md:w-[80%]">
@@ -82,59 +98,61 @@ function VideoPlayerComponent() {
             {/* for video with same channels and category */}
             <div className="flex flex-col gap-4 md:p-2 w-full h-full justify-center items-center">
               <h1 className="roboto-medium">Similar Category</h1>
-              {Videos.filter((item)=>item?.Category==video?.Category).map((item) => {
-                return (
-                  <div
-                    key={item._id}
-                    className="flex  flex-col md:flex-row gap-4 md:gap-12 md:p-2 h-full w-full  md:w-[80%] "
-                    onClick={() => route(`/video/${item?.title}`)}
-                  >
-                    {/* thumbnail Image */}
-                    <div className="md:w-[320px] w-full">
-                      <img
-                        src={item?.thumbnailUrl}
-                        className="w-full md:rounded-lg shadow"
-                        onError={({ currentTarget }) => {
-                          currentTarget.onerror = null;
-                          currentTarget.src = "/imageNotFound.jpg";
-                        }}
-                        alt={item?.title}
-                      />
-                    </div>
-                    {/* Video description */}
-                    <div className=" w-full md:w-[60%] p-2 flex flex-row-reverse md:flex-col  gap-2 items-start">
-                      {/* title */}
-                      <div className="w-full flex flex-col gap-1">
-                        <p className="text-[13px] lg:text-lg md:text-md roboto-medium w-full">
-                          {item?.title}
-                        </p>
-                        <div className="flex gap-2 text-[12px] text-zinc-600 roboto-medium">
-                          <p className="flex md:hidden">
-                            {item?.channelId?.name}
-                          </p>
-                          <p>{item?.views} Views .</p>
-                          <p>
-                            {item?.uploadDate}
-                            ago
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex gap-2 items-center">
+              {Videos?.filter((item) => item?.Category == video?.Category).map(
+                (item) => {
+                  return (
+                    <div
+                      key={item._id}
+                      className="flex  flex-col md:flex-row gap-4 md:gap-12 md:p-2 h-full w-full  md:w-[80%] "
+                      onClick={() => route(`/video/${item?.title}`)}
+                    >
+                      {/* thumbnail Image */}
+                      <div className="md:w-[320px] w-full">
                         <img
-                          src={item?.channelId?.image}
-                          width="40"
-                          height="40"
-                          className="rounded-full"
+                          src={item?.thumbnailUrl}
+                          className="w-full md:rounded-lg shadow"
+                          onError={({ currentTarget }) => {
+                            currentTarget.onerror = null;
+                            currentTarget.src = "/imageNotFound.jpg";
+                          }}
+                          alt={item?.title}
                         />
-                        <div className="gap-1 items-center text-sm roboto-medium hidden md:flex">
-                          <p>{item?.channelId.name}</p>
-                          <MdVerified />
+                      </div>
+                      {/* Video description */}
+                      <div className=" w-full md:w-[60%] p-2 flex flex-row-reverse md:flex-col  gap-2 items-start">
+                        {/* title */}
+                        <div className="w-full flex flex-col gap-1">
+                          <p className="text-[13px] lg:text-lg md:text-md roboto-medium w-full">
+                            {item?.title}
+                          </p>
+                          <div className="flex gap-2 text-[12px] text-zinc-600 roboto-medium">
+                            <p className="flex md:hidden">
+                              {item?.channelId?.name}
+                            </p>
+                            <p>{item?.views} Views .</p>
+                            <p>
+                              {item?.uploadDate}
+                              ago
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex gap-2 items-center">
+                          <img
+                            src={item?.channelId?.image}
+                            width="40"
+                            height="40"
+                            className="rounded-full"
+                          />
+                          <div className="gap-1 items-center text-sm roboto-medium hidden md:flex">
+                            <p>{item?.channelId.name}</p>
+                            <MdVerified />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                }
+              )}
             </div>
           </div>
         </div>
