@@ -5,7 +5,9 @@ const LoginComponent = lazy(() => import("../Components/LoginComponent"));
 const SignupComponent = lazy(() => import("../Components/SignupComponent"));
 const UserInfoPage = lazy(() => import("../Components/UserInfoPage"));
 const ChannelPage = lazy(() => import("../Components/ChannelPage"));
-const UploadVideoComponent =lazy(()=> import("../Components/UploadVideoComponent"));
+const UploadVideoComponent = lazy(() =>
+  import("../Components/UploadVideoComponent")
+);
 const VideoListComponent = lazy(() =>
   import("../Components/VideoListComponent")
 );
@@ -16,6 +18,8 @@ const SearchComponent = lazy(() => import("../Components/SearchComponent"));
 const EditVideoComponent = lazy(() =>
   import("../Components/EditVideoComponent")
 );
+const HistoryComponent = lazy(() => import("../Components/HistoryComponent"));
+
 import LoadingComponent from "../Components/LoadingComponent";
 import NotFoundPageComponent from "../Components/NotFoundPageComponent";
 
@@ -62,6 +66,14 @@ export const BrowseRouter = createBrowserRouter([
         element: (
           <Suspense fallback={<LoadingComponent />}>
             <SearchComponent />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/history",
+        element: (
+          <Suspense fallback={<LoadingComponent />}>
+            <HistoryComponent />
           </Suspense>
         ),
       },

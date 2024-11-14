@@ -1,13 +1,15 @@
 import axios from "axios";
 import { FaPencil, FaPlus, FaTrash } from "react-icons/fa6";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import SubscribeComponent from "./Subscribe";
+import { setHistory } from "../Redux/MediaSlice";
 
 function ChannelPage() {
   //getting the route params channelName for filtering the data
   const params = useParams();
   const route = useNavigate();
+  const dispatch=useDispatch();
 
   //getting the channel data from redux store
   const Channel = useSelector((state) => {
@@ -125,7 +127,10 @@ function ChannelPage() {
                       <h1 className="text-sm md:text-2xl font-semibold roboto ">
                         No Videos Uploaded Yet
                       </h1>
-                      <button className="border-2 p-2 font-medium flex items-center text-sm" onClick={()=>route("/upload")}>
+                      <button
+                        className="border-2 p-2 font-medium flex items-center text-sm"
+                        onClick={() => route("/upload")}
+                      >
                         Upload New Video <FaPlus />
                       </button>
                     </div>
@@ -133,7 +138,10 @@ function ChannelPage() {
                 ) : (
                   <div className="flex w-full flex-wrap p-4 gap-6 justify-center">
                     {item?.creator === user?.username && (
-                      <button className="border-2 p-2 font-medium flex items-center text-lg justify-center  w-[320px] hover:bg-zinc-100 active:bg-white rounded-lg" onClick={()=>route("/upload")}>
+                      <button
+                        className="border-2 p-2 font-medium flex items-center text-lg justify-center  w-[320px] hover:bg-zinc-100 active:bg-white rounded-lg"
+                        onClick={() => route("/upload")}
+                      >
                         Upload New Video <FaPlus />
                       </button>
                     )}
@@ -156,7 +164,10 @@ function ChannelPage() {
                                     currentTarget.onerror = null;
                                     currentTarget.src = "/imageNotFound.jpg";
                                   }}
-                                  onClick={() => route(`/video/${val?.title}`)}
+                                  onClick={() => {
+                                    route(`/video/${val?.title}`);
+                                    dispatch(setHistory(val?._id));
+                                  }}
                                 />
                                 <p
                                   className="text-sm roboto-medium p-2 cursor-pointer"
@@ -170,7 +181,10 @@ function ChannelPage() {
                                 </div>
                                 {val?.uploader === user?.username && (
                                   <div className="text-sm roboto-medium flex gap-12 justify-end p-2">
-                                    <button className="flex items-center gap-1 text-blue-500 hover:text-[brown] active:text-black" onClick={()=>route(`/edit/${val?._id}`)}>
+                                    <button
+                                      className="flex items-center gap-1 text-blue-500 hover:text-[brown] active:text-black"
+                                      onClick={() => route(`/edit/${val?._id}`)}
+                                    >
                                       Edit
                                       <FaPencil className="text-[11px]" />
                                     </button>

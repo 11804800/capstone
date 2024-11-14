@@ -19,22 +19,24 @@ import {
 import { PiCaretRightThin, PiCoatHanger } from "react-icons/pi";
 import { RiYoutubeLine } from "react-icons/ri";
 import { SiYoutubeshorts } from "react-icons/si";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Logout } from "../Redux/UserSlice";
-
+import { HiOutlineUserCircle } from "react-icons/hi";
 
 function SidebarComponent() {
+  const dispatch = useDispatch();
 
-  const dispatch=useDispatch();
-  
   //Current date instance
   const date = new Date();
 
   //state to toggle the scrollbar visibility
   const [visible, setVisible] = useState(false);
 
-  const route=useNavigate();
+  const route = useNavigate();
+  const user = useSelector((state) => {
+    return state.user.user;
+  });
 
   return (
     //onMouseEnter it will set the visible state true which will make the scrollbar visible
@@ -47,7 +49,10 @@ function SidebarComponent() {
       }   fixed md:w-[250px] w-full shadow-sm h-[93dvh] overflow-auto flex flex-col gap-4 justify-start items-start p-2 transition-all duration-300`}
     >
       <div className="flex flex-col items-start gap-2 border-b border-zinc-200 w-full p-2">
-        <Link to="/" className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold">
+        <Link
+          to="/"
+          className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold"
+        >
           <MdOutlineHome size={23} />
           Home
         </Link>
@@ -60,39 +65,57 @@ function SidebarComponent() {
           Subscriptions
         </button>
       </div>
-      <div className="flex flex-col gap-2 items-start border-b border-zinc-200 w-full p-2">
-        <h1 className="p-2 font-semibold flex items-center justify-start ">
-          You <PiCaretRightThin />{" "}
-        </h1>
-        <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold">
-          <MdHistory size={23} />
-          History
-        </button>
-        <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold">
-          <MdPlaylistPlay size={25} />
-          Playlists
-        </button>
-        <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold">
-          <RiYoutubeLine size={23} />
-          Your Videos
-        </button>
-        <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold">
-          <MdOutlineWatchLater />
-          Watch later
-        </button>
-        <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold">
-          <MdThumbUpOffAlt />
-          Liked Videos
-        </button>
-        <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold">
-          <HiDownload />
-          Downloads
-        </button>
-      </div>
-      <div className="flex flex-col gap-2 items-start border-b border-zinc-200 w-full p-2">
-        <h1 className="w-full font-semibold p-2">Subscriptions</h1>
-        <p className="p-2 hover:bg-zinc-200 w-full">Show Subscribed</p>
-      </div>
+      {user ? (
+        <>
+          <div className="flex flex-col gap-2 items-start border-b border-zinc-200 w-full p-2">
+            <h1 className="p-2 font-semibold flex items-center justify-start ">
+              You <PiCaretRightThin />{" "}
+            </h1>
+            <button
+              className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold"
+              onClick={() => route("/history")}
+            >
+              <MdHistory size={23} />
+              History
+            </button>
+            <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold">
+              <MdPlaylistPlay size={25} />
+              Playlists
+            </button>
+            <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold">
+              <RiYoutubeLine size={23} />
+              Your Videos
+            </button>
+            <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold">
+              <MdOutlineWatchLater />
+              Watch later
+            </button>
+            <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold">
+              <MdThumbUpOffAlt />
+              Liked Videos
+            </button>
+            <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold">
+              <HiDownload />
+              Downloads
+            </button>
+          </div>
+          <div className="flex flex-col gap-2 items-start border-b border-zinc-200 w-full p-2">
+            <h1 className="w-full font-semibold p-2">Subscriptions</h1>
+            <p className="p-2 hover:bg-zinc-200 w-full">Show Subscribed</p>
+          </div>
+        </>
+      ) : (
+        <div className="roboto-medium flex flex-col gap-2 justify-center items-center w-full border-b py-2">
+          <p>Login to view</p>
+          <Link
+            to="/login"
+            className="flex px-2 font-semibold text-blue-700 py-1 border-2 rounded-2xl items-center text-sm min-w-fit hover:text-[brown] active:text-blue-700"
+          >
+            <HiOutlineUserCircle size={21} />
+            Sign In
+          </Link>
+        </div>
+      )}
       <div className="flex flex-col gap-2 items-start border-b border-zinc-200 w-full p-2">
         <h1 className="font-semibold p-2">Explore</h1>
         <button className="p-2 hover:bg-zinc-200 w-full hover:font-semibold rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold">
@@ -142,13 +165,26 @@ function SidebarComponent() {
           <CiSettings size={23} />
           Settings
         </button>
-        <button className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex items-center justify-start gap-2 focus:bg-zinc-200 focus:font-semibold" onClick={()=>{
-          dispatch(Logout());
-          route("/")
-          }}>
-          <HiOutlineLogout />
-          Logout
-        </button>
+        {user ? (
+          <button
+            className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex items-center justify-start gap-2 focus:bg-zinc-200 focus:font-semibold"
+            onClick={() => {
+              dispatch(Logout());
+              route("/");
+            }}
+          >
+            <HiOutlineLogout />
+            Logout
+          </button>
+        ) : (
+          <Link
+            to="/login"
+            className="flex px-2 font-semibold text-blue-700 py-1 border-2 rounded-2xl items-center text-sm min-w-fit hover:text-[brown] active:text-blue-700"
+          >
+            <HiOutlineUserCircle size={21} />
+            Sign In
+          </Link>
+        )}
         <p className="p-2 text-[11px] font-semibold text-zinc-600">
           @ {date.getFullYear()} Copyright
         </p>
