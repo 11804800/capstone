@@ -39,11 +39,18 @@ const UserSlice = createSlice({
       );
       state.userData.subscribed.splice(index, 1);
     },
-    SetUserLoading: (state, action) => {
+    SetLoading: (state, action) => {
       state.loading = action.payload;
     },
-    SetUserError: (state, action) => {
-      state.loading = action.payload;
+    SetError: (state, action) => {
+      state.err = action.payload;
+    },
+    addChannel: (state, action) => {
+      state.userData.channels.push(action.payload);
+    },
+    PopChannel:(state,action)=>{
+      const index=state.userData?.channels.findIndex((item)=>item==action.payload);
+      state.userData?.channels.splice(index,1);
     }
   },
 });
@@ -57,4 +64,6 @@ export const {
   UnSubscribe,
   SetError,
   SetLoading,
+  addChannel,
+  PopChannel
 } = UserSlice.actions;

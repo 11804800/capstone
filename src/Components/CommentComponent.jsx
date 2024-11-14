@@ -20,12 +20,15 @@ function EditCommentForm({ UpdateComment, comment, setVisible }) {
   return (
     <div className="absolute top-0 left-0 w-[100%] h-[100dvh] bg-black/20 flex justify-center items-center z-[999]">
       <div className="px-5 py-12 rounded-lg shadow flex flex-col gap-4 bg-white w-[320px]">
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          className="border-b-2 border-black p-2"
-        />
+        {
+          text &&
+          <input
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            className="border-b-2 border-black p-2"
+          />
+        }{" "}
         <div className="flex justify-end w-full gap-5 roboto-medium text-sm">
           {/* this button will hide the button div and comments list */}
           <button
@@ -75,25 +78,25 @@ function CommentComponent({ comments, videoId }) {
       if (text) {
         const res = await axios.post(
           `http://localhost:3000/video/${videoId}/comment`,
+          body,
           {
             headers: {
               Authorization: `JWT ${token}`,
             },
-            body: body,
           }
         );
         dispatch(
           PushComment({
             videoId,
-            comments:{
+            comments: {
               userId: {
-                avatar:user?.avatar,
-                username:user?.username,
-                _id:user?._id
+                avatar: user?.avatar,
+                username: user?.username,
+                _id: user?._id,
               },
-              text:text,
-              _id:Math.floor(Math.random())
-            }
+              text: text,
+              _id: Math.floor(Math.random()),
+            },
           })
         );
         setText("");
@@ -130,11 +133,11 @@ function CommentComponent({ comments, videoId }) {
     try {
       const res = await axios.put(
         `http://localhost:3000/video/${videoId}/comment/${comment?._id}`,
+        body,
         {
           headers: {
             Authorization: `JWT ${token}`,
           },
-          body: body,
         }
       );
 

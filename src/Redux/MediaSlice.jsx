@@ -29,11 +29,11 @@ const MediaSlice = createSlice({
       );
       state.videos[index] = action.payload;
     },
-    SetLoading: (state, action) => {
+    SetVideoLoading: (state, action) => {
       state.loading = action.payload;
     },
-    SetError: (state, action) => {
-      state.loading = action.payload;
+    SetVideoError: (state, action) => {
+      state.err = action.payload;
     },
     PushComment: (state, action) => {
       //finding index
@@ -77,8 +77,8 @@ export const {
   ShowVideos,
   ShowFilters,
   EditVideo,
-  SetError,
-  SetLoading,
+  SetVideoError,
+  SetVideoLoading,
   PushComment,
   EditComments,
   RemoveComment,

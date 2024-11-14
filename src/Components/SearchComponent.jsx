@@ -66,9 +66,9 @@ function SearchComponent() {
                     />
                   </div>
                   {/* Channel Description */}
-                  <div className="flex gap-4 flex-col md:flex-row  justify-center  md:justify-between w-full xl:w-[60%] items-center overflow-hidden">
+                  <div className="flex gap-4 flex-col md:flex-row  justify-start   md:justify-between w-full xl:w-[60%] items-center overflow-hidden">
                     <div
-                      className="flex flex-col gap-2"
+                      className="flex flex-col gap-2 w-full"
                       onClick={() => route(`/channel/${item?.name}`)}
                     >
                       <p className="text-[12px] md:text-sm w-full roboto-bold">

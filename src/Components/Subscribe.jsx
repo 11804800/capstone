@@ -24,11 +24,11 @@ function SubscribeComponent({ channels, channelId }) {
       };
       const res = await axios.post(
         `http://localhost:3000/user/${user}/subscribe`,
+        body,
         {
           headers: {
             Authorization: `JWT ${token}`,
           },
-          body,
         }
       );
       dispatch(Subscribe(channelId));
@@ -40,6 +40,7 @@ function SubscribeComponent({ channels, channelId }) {
   //subscribing the channel
   async function UnSubScribeChannel() {
     try {
+
       const res = await axios.delete(
         `http://localhost:3000/user/${user}/unsubcribe/${channelId}`,
         {
