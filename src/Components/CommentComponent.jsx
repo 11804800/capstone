@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { EditComments, PushComment, RemoveComment } from "../Redux/MediaSlice";
 
 //edit comment form modal
+//you cannot edit the immedately posted comment until you refresh it
 function EditCommentForm({ UpdateComment, comment, setVisible }) {
   const [text, setText] = useState(comment?.text);
   function EditComment() {
@@ -125,7 +126,7 @@ function CommentComponent({ comments, videoId }) {
     }
   }
 
-  //updating the comment
+  //updating the comment it is actually a callback function
   async function UpdateComment(commentText) {
     const body = {
       text: commentText,

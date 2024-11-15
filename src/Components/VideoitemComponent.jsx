@@ -2,7 +2,7 @@ import { MdVerified } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setHistory } from "../Redux/MediaSlice";
-import { DaysFormat, formatNumber } from "../utils/Formats";
+import { DaysFormat,FormatNumber } from "../utils/Formats";
 
 
 function VideoItemComponent({ data }) {
@@ -13,7 +13,7 @@ function VideoItemComponent({ data }) {
     <div
       className="w-[320px] flex flex-col gap-2"
       onClick={() => {
-        route(`/video/${data?.title}`);
+        route(`/video/${data?._id}`);
         dispatch(setHistory(data?._id));
       }}
     >
@@ -46,7 +46,7 @@ function VideoItemComponent({ data }) {
             {data?.channelId?.verified && <MdVerified />}
           </p>
           <p className="text-[12px] font-medium text-zinc-600">
-            {formatNumber(data?.views)} Views . {DaysFormat(data?.uploadDate)} days ago
+            {FormatNumber(data?.views)} Views . {DaysFormat(data?.uploadDate)} days ago
           </p>
         </div>
       </div>

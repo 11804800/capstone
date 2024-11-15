@@ -9,10 +9,10 @@ import SubscribeComponent from "./Subscribe";
 import CommentComponent from "./CommentComponent";
 import { FaShare } from "react-icons/fa6";
 import { HiDownload } from "react-icons/hi";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import DescriptionModal from "../Components/Modals/DescriptionModal";
 import { setHistory } from "../Redux/MediaSlice";
-import { DaysFormat, formatNumber } from "../utils/Formats";
+import { DaysFormat, FormatNumber } from "../utils/Formats";
 
 
 function VideoPlayerComponent() {
@@ -27,7 +27,8 @@ function VideoPlayerComponent() {
     return state.media.videos;
   });
 
-  const video = Videos?.filter((item) => item?.title === params?.videoName)[0];
+  //filtering the component based on id
+  const video = Videos?.filter((item) => item?._id === params?.videoName)[0];
   const user = useSelector((state) => {
     return state.user.userData;
   });
@@ -70,7 +71,7 @@ function VideoPlayerComponent() {
                         <MdVerified />
                       </div>
                       <p className="text-[12px] text-zinc-600">
-                        {formatNumber(video?.channelId.Subscriber_Count)} Subscribers
+                        {FormatNumber(video?.channelId.Subscriber_Count)} Subscribers
                       </p>
                     </div>
                   </div>
@@ -85,7 +86,7 @@ function VideoPlayerComponent() {
                 <div className="flex gap-6 py-4 px-2">
                   <div className="flex gap-2 rounded-full border shadow bg-zinc-100 p-1">
                     <button className="border-r-2 flex gap-1  items-center text-sm roboto-medium p-1">
-                      <MdOutlineThumbUp /> {formatNumber(video?.likes)}
+                      <MdOutlineThumbUp /> {FormatNumber(video?.likes)}
                     </button>
                     <button className="p-1">
                       <MdOutlineThumbDown />
@@ -106,7 +107,7 @@ function VideoPlayerComponent() {
                 setVisible(!visible);
               }}>
                 <div className="flex gap-5 roboto-medium">
-                  <p>{formatNumber(video?.views)} Views</p>
+                  <p>{FormatNumber(video?.views)} Views</p>
                   <p>{DaysFormat(video?.uploadDate)} days ago</p>
                 </div>
                 <div className="roboto-medium text-sm  flex items-end">
@@ -133,7 +134,7 @@ function VideoPlayerComponent() {
                       key={item._id}
                       className="flex  flex-col md:flex-row gap-4 md:gap-12 md:p-2 h-full w-full  md:w-[80%] "
                       onClick={() => {
-                        route(`/video/${item?.title}`);
+                        route(`/video/${item?._id}`);
                         dispatch(setHistory(item?._id));
                         window.scrollTo(0,0);
                       }}

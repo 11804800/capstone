@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import SubscribeComponent from "./Subscribe";
 import { setHistory } from "../Redux/MediaSlice";
-import { DaysFormat, formatNumber } from "../utils/Formats";
+import { DaysFormat, FormatNumber } from "../utils/Formats";
 
 function SearchComponent() {
   const params = useParams();
@@ -77,7 +77,7 @@ function SearchComponent() {
                       </p>
                       <div className="text-[12px] text-zinc-600 roboto-medium flex flex-col md:flex-row gap-2">
                         <p>@{item?.name}</p>
-                        <p>{formatNumber(item?.Subscriber_Count)} Subscribers</p>
+                        <p>{FormatNumber(item?.Subscriber_Count)} Subscribers</p>
                       </div>
                       <p className="line-clamp-1 md:line-clamp-2 w-[80%] text-[12px] text-zinc-600 roboto-medium">
                         {item?.description}
@@ -103,7 +103,7 @@ function SearchComponent() {
                   key={item._id}
                   className="flex  flex-col md:flex-row gap-4 md:gap-12 md:p-2 h-full w-full  md:w-[80%] "
                   onClick={() => {
-                    route(`/video/${item?.title}`);
+                    route(`/video/${item?._id}`);
                     dispatch(setHistory(item?._id));
                   }}
                 >
@@ -130,7 +130,7 @@ function SearchComponent() {
                         <p className="flex md:hidden">
                           {item?.channelId?.name}
                         </p>
-                        <p>{formatNumber(item?.views)} Views .</p>
+                        <p>{FormatNumber(item?.views)} Views .</p>
                         <p>
                           {DaysFormat(item?.uploadDate)} days
                           ago

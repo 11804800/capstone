@@ -88,6 +88,7 @@ export const BrowseRouter = createBrowserRouter([
     ),
     errorElement: <NotFoundPageComponent />,
   },
+  // route for signup
   {
     path: "/signup",
     element: (
@@ -97,6 +98,7 @@ export const BrowseRouter = createBrowserRouter([
     ),
     errorElement: <NotFoundPageComponent />,
   },
+  // route for uploading new video
   {
     path: "/upload/:channelId",
     element: (
@@ -106,6 +108,7 @@ export const BrowseRouter = createBrowserRouter([
     ),
     errorElement: <NotFoundPageComponent />,
   },
+  // route for edit video
   {
     path: "/edit/:videoId",
     element: (

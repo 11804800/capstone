@@ -282,7 +282,7 @@ function ChannelPage() {
                                       currentTarget.src = "/imageNotFound.jpg";
                                     }}
                                     onClick={() => {
-                                      route(`/video/${val?.title}`);
+                                      route(`/video/${val?._id}`);
                                       dispatch(setHistory(val?._id));
                                     }}
                                   />

@@ -18,6 +18,11 @@ import {
 import axios from "axios";
 import { SetError, SetLoading, ShowUserData } from "./Redux/UserSlice";
 
+
+
+//github link
+//https://github.com/11804800/capstone.git
+
 function App() {
   //state for toggling the sidebar menu
   const [sidebarvisible, setSidebarVisible] = useState(false);
@@ -104,9 +109,11 @@ function App() {
         />
       </div>
       <div className="flex w-full gap-2">
+        {/* sidebar div */}
         <div className={`${sidebarvisible && "md:w-[250px] w-full"}`}>
           {sidebarvisible && <SidebarComponent />}
         </div>
+        {/* will change the with according to the sidebarisible state */}
         <div
           className={`${
             sidebarvisible

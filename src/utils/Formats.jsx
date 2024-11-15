@@ -1,4 +1,4 @@
-export function formatNumber(number) {
+export function FormatNumber(number) {
   //formatting the numers to k,m and b
   const num = number.toLocaleString("en-US", {
     maximumFractionDigits: 2,

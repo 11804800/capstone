@@ -9,6 +9,7 @@ import { BrowseRouter } from "./utils/BrowseRouter.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    {/* //subscribing to redux store */}
     <Provider store={Store}>
       <RouterProvider router={BrowseRouter}>
         <App />

@@ -24,8 +24,8 @@ function CreateChannelModal({ setVisible, user }) {
     return state.channel.channels
   });
 
-  // console.log(channels,user);
 
+  //create new channel post axios function
   async function CreateChannel() {
     try {
       let formdata = new FormData();

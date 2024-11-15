@@ -39,8 +39,10 @@ function EditChannelModal({ setVisible, channelId }) {
     }));
   }
 
+  //edit channel function
   async function EditChannel()
   {
+    //formdata
     const formdata=new FormData();
     formdata.append("image",image);
     formdata.append("name",channelInfo?.handle);

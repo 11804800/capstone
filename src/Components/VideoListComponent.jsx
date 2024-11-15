@@ -68,7 +68,7 @@ function VideoListComponent() {
           </div>
         ) : (
           <div className="flex flex-col gap-4 pt-12 w-full  h-[93dvh] overflow-y-auto ">
-            <div className="flex gap-6 px-6 py-2 No-Scrollbar1 w-[100%] h-[7dvh]  overflow-x-auto">
+            <div className="flex gap-6 px-6 py-2 No-Scrollbar1 w-[100%] h-[50px]  overflow-x-auto">
               <button
                 className={`${
                   filter ? "bg-zinc-100" : "bg-black text-white"

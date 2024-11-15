@@ -35,20 +35,18 @@ function EditVideoComponent() {
 
   //function to upate the video
   async function UpdateVideo() {
-    const body = {
-      thumbnailUrl: videoData?.image,
-      title: videoData?.title,
-      description: videoData?.description,
-    };
+    const formdata = new FormData();
+    formdata.append("image", videoData?.image);
+    formdata.append("title", videoData?.title);
+    formdata.append("description", videoData?.description);
 
     try {
-        const res=await axios.put(`http://localhost:3000/video/${Videos._id}`,{
+        const res=await axios.put(`http://localhost:3000/video/${Videos._id}`,formdata,{
             headers:{
                 Authorization:`JWT ${token}`
             },
-            body:body
         });
-        console.log(res.data?.result);
+        route("/");
         dispatch(EditVideo(res.data?.result));
     } catch (err) {
         console.log(err);

@@ -65,12 +65,14 @@ function SidebarComponent() {
           Subscriptions
         </button>
       </div>
+      {/* it will show only when user is logged else it will show login btn */}
       {user ? (
         <>
           <div className="flex flex-col gap-2 items-start border-b border-zinc-200 w-full p-2">
             <h1 className="p-2 font-semibold flex items-center justify-start ">
               You <PiCaretRightThin />{" "}
             </h1>
+            {/* //route to show history of watched videos */}
             <button
               className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex gap-2 items-center justify-start focus:bg-zinc-200 focus:font-semibold"
               onClick={() => route("/history")}
@@ -165,6 +167,7 @@ function SidebarComponent() {
           <CiSettings size={23} />
           Settings
         </button>
+        {/* //button to logout when user is logged in  else signup btn */}
         {user ? (
           <button
             className="p-2 hover:bg-zinc-200 hover:font-semibold w-full rounded-xl flex items-center justify-start gap-2 focus:bg-zinc-200 focus:font-semibold"
