@@ -98,7 +98,7 @@ export const BrowseRouter = createBrowserRouter([
     errorElement: <NotFoundPageComponent />,
   },
   {
-    path: "/upload",
+    path: "/upload/:channelId",
     element: (
       <Suspense fallback={<LoadingComponent />}>
         <UploadVideoComponent />

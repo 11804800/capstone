@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import SubscribeComponent from "./Subscribe";
 import { setHistory } from "../Redux/MediaSlice";
+import { DaysFormat, formatNumber } from "../utils/Formats";
 
 function SearchComponent() {
   const params = useParams();
@@ -76,7 +77,7 @@ function SearchComponent() {
                       </p>
                       <div className="text-[12px] text-zinc-600 roboto-medium flex flex-col md:flex-row gap-2">
                         <p>@{item?.name}</p>
-                        <p>{item?.Subscriber_Count} Subscribers</p>
+                        <p>{formatNumber(item?.Subscriber_Count)} Subscribers</p>
                       </div>
                       <p className="line-clamp-1 md:line-clamp-2 w-[80%] text-[12px] text-zinc-600 roboto-medium">
                         {item?.description}
@@ -129,9 +130,9 @@ function SearchComponent() {
                         <p className="flex md:hidden">
                           {item?.channelId?.name}
                         </p>
-                        <p>{item?.views} Views .</p>
+                        <p>{formatNumber(item?.views)} Views .</p>
                         <p>
-                          {item?.uploadDate}
+                          {DaysFormat(item?.uploadDate)} days
                           ago
                         </p>
                       </div>
@@ -139,13 +140,15 @@ function SearchComponent() {
                     <div className="flex gap-2 items-center">
                       <img
                         src={item?.channelId?.image}
-                        width="40"
-                        height="40"
-                        className="rounded-full"
+
+                        className="rounded-full w-[40px] h-[40px]"
                       />
                       <div className="gap-1 items-center text-sm roboto-medium hidden md:flex">
                         <p>{item?.channelId.name}</p>
+                        {
+                          item?.channelId?.verified &&
                         <MdVerified />
+                       }
                       </div>
                     </div>
                   </div>

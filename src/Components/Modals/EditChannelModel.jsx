@@ -65,8 +65,8 @@ function EditChannelModal({ setVisible, channelId }) {
   }
 
   return (
-    <div className="absolute top-0 left-0 bg-black/5 h-full w-full flex justify-center items-center ">
-      <div className="w-full h-full  flex flex-col gap-2 p-2 md:p-4 rounded-md  bg-white ">
+    <div className="absolute top-0 left-0 bg-black/5 h-full w-full flex justify-center ">
+      <div className="w-full h-full  flex flex-col gap-2 p-2 md:p-4 rounded-md  bg-white">
         <div className="flex justify-between w-full h-full px-4 py-3 text-2xl font-semibold">
           <h1>How You'll Appear</h1>
           <button
@@ -79,7 +79,7 @@ function EditChannelModal({ setVisible, channelId }) {
           </button>
         </div>
         <div className="w-full h-full flex flex-col gap-4 justify-center items-center">
-          <div className="flex flex-col justify-center items-center gap-3">
+          <div className="flex flex-col justify-center items-center gap-3 h-[130px]">
             <img
               src={image ? URL.createObjectURL(image) : channel?.image}
               className="bg-red-200 rounded-full w-[120px] h-[120px]"

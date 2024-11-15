@@ -3,11 +3,12 @@ import { FaPencil, FaPlus, FaTrash } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import SubscribeComponent from "./Subscribe";
-import { setHistory } from "../Redux/MediaSlice";
+import { PopVideo, setHistory } from "../Redux/MediaSlice";
 import { useState } from "react";
 import EditChannelModal from "./Modals/EditChannelModel";
-import { removeChannel } from "../Redux/ChannelSlice";
+import { removeChannel, removeVideo } from "../Redux/ChannelSlice";
 import { PopChannel } from "../Redux/UserSlice";
+import DescriptionModal from "./Modals/DescriptionModal";
 
 function ChannelPage() {
   //getting the route params channelName for filtering the data
@@ -17,6 +18,7 @@ function ChannelPage() {
 
   //state for editchannelmode visiblity
   const [visible, setVisible] = useState();
+  const [descriptionvisible, setDescriptionVisible] = useState(false);
 
   //getting the channel data from redux store
   const Channel = useSelector((state) => {
@@ -72,6 +74,32 @@ function ChannelPage() {
     }
   }
 
+  //for deleting video
+  async function DeleteVideo(videoId) {
+    try {
+      await axios.delete(`http://localhost:3000/video/${videoId}`, {
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      });
+      await axios.delete(
+        `http://localhost:3000/channel/${params?.ChannelName}/video/${videoId}`,
+        {
+          headers: {
+            Authorization: `JWT ${token}`,
+          },
+        }
+      );
+      //delete from channel state
+      dispatch(PopVideo(videoId));
+      dispatch(
+        removeVideo({ channelId: params?.ChannelName, videoId: videoId })
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   if (isLoading) {
     return (
       <div className="w-full h-[90dvh] flex justify-center items-center">
@@ -86,7 +114,7 @@ function ChannelPage() {
     );
   } else {
     return (
-      <>
+      <div className={`w-full ${descriptionvisible && 'h-[90dvh]'} ${visible && 'h-[90dvh]'}`}>
         {Channel?.filter((item) => item.name === params.ChannelName).map(
           (item) => {
             return (
@@ -96,15 +124,15 @@ function ChannelPage() {
                   src={item?.banner ? item?.banner : "/user_banner.png"}
                   className="rounded-xl h-[120px] md:h-[220px] w-full "
                 />
-                <div className="flex w-full md:w-[80%] md:h-[180px]  items-center gap-2">
+                <div
+                  className={`flex w-full md:w-[80%] ${
+                    descriptionvisible ? "h-full" : "md:h-[180px] "
+                  }  items-center gap-2`}
+                >
                   {/* channel image */}
                   <div className="w-[20%] flex justify-center items-center">
                     <img
-                      src={
-                        item?.image
-                          ? `${item?.image}`
-                          : "/User.png"
-                      }
+                      src={item?.image ? `${item?.image}` : "/User.png"}
                       className="rounded-full md:w-[100px] md:h-[100px] w-[50px] h-[50px]"
                     />
                   </div>
@@ -116,7 +144,7 @@ function ChannelPage() {
                     {/* Channel Info */}
                     <div
                       id="Channel-info"
-                      className="font-semibold md:font-normal flex flex-col md:flex-row md:gap-2 text-sm text-black md:text-[#707070]"
+                      className="font-semibold h-full md:font-normal flex flex-col md:flex-row md:gap-2 text-sm text-black md:text-[#707070]"
                     >
                       <span className="text-[11px]">@{item?.name}</span>
                       <div className="flex gap-1 text-[#707070] text-[11px] md:text-sm ">
@@ -126,13 +154,23 @@ function ChannelPage() {
                     </div>
                     {/* //display on large screen size */}
                     {item?.description && (
-                      <div className="text-sm font-medium  w-[80%] hidden md:flex">
+                      <div
+                        onClick={() => {
+                          setDescriptionVisible(!descriptionvisible);
+                        }}
+                        className="text-sm font-medium  w-[80%] hidden md:flex"
+                      >
                         <p className="line-clamp-1 text-[#707070]">
                           {item?.description}
                         </p>
-                        <button className="font-semibold">...more.</button>
+                        <button className="font-semibold hover:text-[brown] active:text-black">
+                          "...more."
+                        </button>
                       </div>
                     )}
+                    {
+                      descriptionvisible && <DescriptionModal data={item} setVisible={setDescriptionVisible} />
+                    }
                     {item?.creator === user?.username ? (
                       <>
                         <h1 className="hidden md:flex text-[12px]">
@@ -208,7 +246,7 @@ function ChannelPage() {
                         </h1>
                         <button
                           className="border-2 p-2 font-medium flex items-center text-sm"
-                          onClick={() => route("/upload")}
+                          onClick={() => route(`/upload/${item?.name}`)}
                         >
                           Upload New Video <FaPlus />
                         </button>
@@ -219,7 +257,7 @@ function ChannelPage() {
                       {item?.creator === user?.username && (
                         <button
                           className="border-2 p-2 font-medium flex items-center text-lg justify-center  w-[320px] hover:bg-zinc-100 active:bg-white rounded-lg"
-                          onClick={() => route("/upload")}
+                          onClick={() => route(`/upload/${item?.name}`)}
                         >
                           Upload New Video <FaPlus />
                         </button>
@@ -271,7 +309,10 @@ function ChannelPage() {
                                         Edit
                                         <FaPencil className="text-[11px]" />
                                       </button>
-                                      <button className="flex items-center gap-1 hover:text-zinc-600 active:text-[brown]">
+                                      <button
+                                        className="flex items-center gap-1 hover:text-zinc-600 active:text-[brown]"
+                                        onClick={() => DeleteVideo(val?.title)}
+                                      >
                                         Delete{" "}
                                         <FaTrash className="text-[11px]" />
                                       </button>
@@ -296,7 +337,7 @@ function ChannelPage() {
             setVisible={setVisible}
           />
         )}
-      </>
+      </div>
     );
   }
 }

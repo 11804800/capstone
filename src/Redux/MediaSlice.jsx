@@ -23,6 +23,9 @@ const MediaSlice = createSlice({
     ShowFilters: (state, action) => {
       state.filters = action.payload;
     },
+    PushVideo:(state,action)=>{
+      state.videos.push(action.payload);
+    },
     EditVideo: (state, action) => {
       const index = state.videos.findIndex(
         (item) => item._id == action.payload._id
@@ -68,6 +71,10 @@ const MediaSlice = createSlice({
         localStorage.setItem("history", JSON.stringify(state.history));
       }
     },
+    PopVideo:(state,action)=>{
+      const index=state.videos.findIndex((item)=>item.title==action.payload);
+      state.videos.splice(index,1);
+    }
   },
 });
 
@@ -83,4 +90,6 @@ export const {
   EditComments,
   RemoveComment,
   setHistory,
+  PushVideo,
+  PopVideo
 } = MediaSlice.actions;

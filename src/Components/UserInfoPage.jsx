@@ -65,22 +65,17 @@ const UserInfoPage = () => {
               <div className="flex gap-5 text-sm roboto-medium">
                 <p>{user?.username}</p>
                 <p>{user?.fullname}</p>
-                <button className="text-blue-600 hover:underline active:text-[brown] flex items-center gap-1">
-                  Edit
-                  <FaPencil size={10} />
-                </button>
               </div>
             </div>
           </div>
           <div className="h-fit px-3 py-5 w-full shadow-md">
             <h1 className="font-semibold py-2 px-2">My Channel</h1>
             {user?.channels.length == 0 ? (
-              <div className="h-full w-full flex justify-center items-center">
+              <div className="h-[180px] w-full flex justify-center items-center">
                 <button
                   className="flex items-center gap-1 text-sm border-2 px-4 py-2 rounded font-semibold hover:bg-zinc-100 active:border-black"
                   onClick={() => {
                     setVisible(!visible);
-                    document.body.style.overflow = "hidden";
                   }}
                 >
                   Create New <FaPlus />

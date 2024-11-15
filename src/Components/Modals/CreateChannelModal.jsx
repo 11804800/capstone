@@ -63,21 +63,20 @@ function CreateChannelModal({ setVisible, user }) {
   }
 
   return (
-    <div className="absolute top-0 left-0 bg-black/5 h-[100%] w-[100dvw] flex justify-center items-center">
+    <div className="absolute top-0 left-0 bg-black/5 h-[100%] w-[100%] flex justify-center items-center">
       <div className="w-full h-full flex flex-col gap-2 p-2 md:p-4 rounded-md shadow-md border bg-white">
-        <div className="flex justify-between w-full px-4 py-3 text-2xl font-semibold">
+        <div className="flex justify-between w-full h-fit px-4 py-3 text-2xl font-semibold ">
           <h1>How You'll Appear</h1>
           <button
             className="border-black hover:border-2 rounded-md px-2 hover:bg-zinc-50/55"
             onClick={() => {
               setVisible(false);
-              document.body.style.overflow = "auto";
             }}
           >
             &times;
           </button>
         </div>
-        <div className="w-full h-full flex flex-col gap-4 justify-center items-center">
+        <div className="w-full h-full flex flex-col gap-4 items-center">
           <div className="flex flex-col justify-center items-center gap-3">
             <img
               src={image ? URL.createObjectURL(image) : "/User.png"}

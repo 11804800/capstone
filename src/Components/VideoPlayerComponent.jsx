@@ -9,9 +9,10 @@ import SubscribeComponent from "./Subscribe";
 import CommentComponent from "./CommentComponent";
 import { FaShare } from "react-icons/fa6";
 import { HiDownload } from "react-icons/hi";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import DescriptionModal from "../Components/Modals/DescriptionModal";
 import { setHistory } from "../Redux/MediaSlice";
+import { DaysFormat, formatNumber } from "../utils/Formats";
 
 
 function VideoPlayerComponent() {
@@ -31,9 +32,10 @@ function VideoPlayerComponent() {
     return state.user.userData;
   });
 
+
   return (
     <>
-      <div className="w-full p-2">
+      <div className={`${visible && 'h-[90dvh]'} w-full p-2`}>
         <div className="flex flex-col gap-2 p-2 w-full">
           <iframe
             src={video?.Url}
@@ -68,7 +70,7 @@ function VideoPlayerComponent() {
                         <MdVerified />
                       </div>
                       <p className="text-[12px] text-zinc-600">
-                        {video?.channelId.Subscriber_Count} Subscribers
+                        {formatNumber(video?.channelId.Subscriber_Count)} Subscribers
                       </p>
                     </div>
                   </div>
@@ -83,7 +85,7 @@ function VideoPlayerComponent() {
                 <div className="flex gap-6 py-4 px-2">
                   <div className="flex gap-2 rounded-full border shadow bg-zinc-100 p-1">
                     <button className="border-r-2 flex gap-1  items-center text-sm roboto-medium p-1">
-                      <MdOutlineThumbUp /> {video?.likes}
+                      <MdOutlineThumbUp /> {formatNumber(video?.likes)}
                     </button>
                     <button className="p-1">
                       <MdOutlineThumbDown />
@@ -101,13 +103,11 @@ function VideoPlayerComponent() {
               </div>
               {/* video info */}
               <div className="bg-zinc-100 p-2 rounded-lg flex flex-col gap-2 md:w-[80%] cursor-pointer" onClick={()=>{
-                document.body.style.overflow="hidden";
                 setVisible(!visible);
-                window.scrollTo(0,0);
               }}>
                 <div className="flex gap-5 roboto-medium">
-                  <p>{video?.views} Views</p>
-                  <p>{video?.uploadDate}</p>
+                  <p>{formatNumber(video?.views)} Views</p>
+                  <p>{DaysFormat(video?.uploadDate)} days ago</p>
                 </div>
                 <div className="roboto-medium text-sm  flex items-end">
                   <p className="line-clamp-2 text-zinc-700">
@@ -116,7 +116,7 @@ function VideoPlayerComponent() {
                   <button>More..</button>
                 </div>
               </div>
-              {visible && <DescriptionModal setVisible={setVisible} views={video?.views} description={video?.description} uploadDate={video?.uploadDate}/>}
+              {visible && <DescriptionModal  setVisible={setVisible} data={video}/>}
               {/* for comments */}
               <CommentComponent
                 videoId={video?._id}

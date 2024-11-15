@@ -34,6 +34,27 @@ const ChannelSlice = createSlice({
       });
       state.channels[index] = action.payload;
     },
+    AddVideo: (state, action) => {
+      const { channelId, videoId } = action.payload;
+      const index = state.channels.findIndex((item) => {
+        item.name === channelId;
+      });
+      if (index > 0) {
+        state.channels[index]?.videos.push(videoId);
+      }
+    },
+    removeVideo: (state, action) => {
+      const { channelId, videoId } = action.payload;
+      const index = state.channels.findIndex((item) => {
+        item.name === channelId;
+      });
+      const videoIndex = state.channels[index]?.videos.findIndex(
+        (item) => item == videoId
+      );
+      if (index > 0) {
+        state.channels[index].videos.splice(videoIndex, 1);
+      }
+    },
   },
 });
 
@@ -45,4 +66,6 @@ export const {
   removeChannel,
   AddNewChannel,
   UpdateChannel,
+  AddVideo,
+  removeVideo,
 } = ChannelSlice.actions;
