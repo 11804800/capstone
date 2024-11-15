@@ -64,6 +64,10 @@ function VideoPlayerComponent() {
                       height="40"
                       className="rounded-full"
                       onClick={()=>route(`/channel/${video?.channelId?.name}`)}
+                      onError={({ currentTarget }) => {
+                        currentTarget.onerror = null;
+                        currentTarget.src = "/User.png";
+                      }}
                     />
                     <div className="flex flex-col roboto-medium" onClick={()=>route(`/channel/${video?.channelId?.name}`)}>
                       <div className="text-sm flex items-center gap-1">
@@ -175,6 +179,10 @@ function VideoPlayerComponent() {
                             width="40"
                             height="40"
                             className="rounded-full"
+                            onError={({ currentTarget }) => {
+                              currentTarget.onerror = null;
+                              currentTarget.src = "/User.png";
+                            }}
                           />
                           <div className="gap-1 items-center text-sm roboto-medium hidden md:flex">
                             <p>{item?.channelId.name}</p>

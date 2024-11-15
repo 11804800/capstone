@@ -289,7 +289,7 @@ function ChannelPage() {
                                   <p
                                     className="text-sm roboto-medium p-2 cursor-pointer"
                                     onClick={() =>
-                                      route(`/video/${val?.title}`)
+                                      route(`/video/${val?._id}`)
                                     }
                                   >
                                     {val?.title}

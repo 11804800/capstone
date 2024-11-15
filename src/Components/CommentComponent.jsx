@@ -54,7 +54,7 @@ function EditCommentForm({ UpdateComment, comment, setVisible }) {
 
 function CommentComponent({ comments, videoId }) {
   const dispatch = useDispatch();
-  const [text, setText] = useState();
+  const [text, setText] = useState("");
   const [err, SetError] = useState(false);
   const [comment, setComment] = useState();
 
@@ -96,7 +96,10 @@ function CommentComponent({ comments, videoId }) {
                 _id: user?._id,
               },
               text: text,
-              _id: Math.floor(Math.random()),
+              //as we are posting the comment so we are getting all the comments in the response so
+              //i am setting the comment id from the last index as the current comment is at last index so in this way
+              //user will able to delete the comment and edit the comment as soon as the comment is posted without any error
+              _id: res?.data?.videos[res?.data?.videos.length-1]?._id,
             },
           })
         );
